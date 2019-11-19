@@ -1,12 +1,12 @@
 package org.fasttrackit;
 
-public class Adoptator {
+public class Adopter {
 
     String name;
     int cash;
     int age;
     String gender;
-    byte patience;
+    byte patienceLevel;
 
 
 

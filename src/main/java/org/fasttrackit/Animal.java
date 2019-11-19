@@ -4,13 +4,13 @@ public class Animal {
 
     String name;
     int age;
-    byte health;
-    byte hunger;
+    byte healthLevel;
+    byte hungerLevel;
     byte spiritLevel;
     String favoriteFood;
     String favoriteRecreation;
     byte fatLevel;
     String gener;
-    byte energy;
+    byte energyLevel;
 
 }

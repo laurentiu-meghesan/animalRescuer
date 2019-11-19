@@ -5,17 +5,20 @@ public class App
     public static void main( String[] args )
     {
 
+        /*
         Game firstGame = new Game();
         firstGame.name = "Laurentiu";
         firstGame.animal = "Dog";
         firstGame.veterinarian = "Nenea Ilie";
+         */
 
-        Adoptator firstAdoptator = new Adoptator();
-        firstAdoptator.name = "Laurentiu";
-        firstAdoptator.cash = 1000;
-        firstAdoptator.gender = "male";
-        firstAdoptator.age = 32;
-        firstAdoptator.patience=8;
+
+        Adopter firstAdopter = new Adopter();
+        firstAdopter.name = "Laurentiu";
+        firstAdopter.cash = 1000;
+        firstAdopter.gender = "male";
+        firstAdopter.age = 32;
+        firstAdopter.patienceLevel=8;
 
 
 
@@ -23,13 +26,13 @@ public class App
         firstAnimal.age = 1;
         firstAnimal.favoriteFood = "Bone";
         firstAnimal.favoriteRecreation = "Running";
-        firstAnimal.health = 10;
-        firstAnimal.hunger = 10;
+        firstAnimal.healthLevel = 10;
+        firstAnimal.hungerLevel = 10;
         firstAnimal.name = "Dog";
         firstAnimal.spiritLevel = 10;
         firstAnimal.fatLevel=3;
         firstAnimal.gener = "female";
-        firstAnimal.energy = 10;
+        firstAnimal.energyLevel = 10;
 
 
         Food bone = new Food();
@@ -37,7 +40,7 @@ public class App
         bone.name = "Bone";
         bone.price = 50;
         bone.quantity = 10;
-        bone.expDate = null;
+        bone.expirationDate = 2020-10-10-18-32-41.222;
         bone.fatLevel = 0;
 
 
@@ -56,9 +59,9 @@ public class App
         firstVet.price=80;
 
 
-        Adoptator secAdoptator = new Adoptator();
-        secAdoptator.name= "Alexandru";
-        secAdoptator.cash = 1200;
+        Adopter secAdopter = new Adopter();
+        secAdopter.name= "Alexandru";
+        secAdopter.cash = 1200;
 
 
 
