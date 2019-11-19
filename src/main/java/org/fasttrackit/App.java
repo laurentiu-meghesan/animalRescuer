@@ -40,7 +40,7 @@ public class App
         bone.name = "Bone";
         bone.price = 50;
         bone.quantity = 10;
-        bone.expirationDate = 2020-10-10-18-32-41.222;
+        bone.expirationDate = null;
         bone.fatLevel = 0;
 
 
