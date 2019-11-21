@@ -1,6 +1,8 @@
 package org.fasttrackit;
 
-public class App 
+import java.time.LocalDate;
+
+public class App
 {
     public static void main( String[] args )
     {
@@ -40,8 +42,10 @@ public class App
         bone.name = "Bone";
         bone.price = 50;
         bone.quantity = 10;
-        bone.expirationDate = null;
+        bone.expirationDate = LocalDate.of(2020,12,10);
         bone.fatLevel = 0;
+
+        System.out.println("Data de expirare: " + bone.expirationDate);
 
 
         RecreationActivity running=new RecreationActivity();
