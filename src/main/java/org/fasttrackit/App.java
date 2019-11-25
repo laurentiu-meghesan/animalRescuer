@@ -7,21 +7,12 @@ public class App
     public static void main( String[] args )
     {
 
-        /*
-        Game firstGame = new Game();
-        firstGame.name = "Laurentiu";
-        firstGame.animal = "Dog";
-        firstGame.veterinarian = "Nenea Ilie";
-         */
-
-
         Adopter firstAdopter = new Adopter();
         firstAdopter.name = "Laurentiu";
         firstAdopter.cash = 1000;
         firstAdopter.gender = "male";
         firstAdopter.age = 32;
         firstAdopter.patienceLevel=8;
-
 
 
         Animal firstAnimal = new Animal();
