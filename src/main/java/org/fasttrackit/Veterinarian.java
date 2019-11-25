@@ -8,4 +8,8 @@ public class Veterinarian {
     byte patience;
     int price;
 
+    public Veterinarian(String name, String specialization){
+
+    };
+
 }

@@ -7,4 +7,8 @@ public class RecreationActivity {
     byte foodConsuption;
     int minuteLasting;
 
+    public RecreationActivity(String name){
+
+    };
+
 }

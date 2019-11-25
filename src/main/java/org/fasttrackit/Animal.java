@@ -13,4 +13,7 @@ public class Animal {
     String gender;
     byte energyLevel;
 
+    public Animal (String name, int age, String gender){
+
+    };
 }
