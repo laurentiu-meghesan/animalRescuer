@@ -10,7 +10,7 @@ public class Animal {
     String favoriteFood;
     String favoriteRecreation;
     byte fatLevel;
-    String gener;
+    String gender;
     byte energyLevel;
 
 }

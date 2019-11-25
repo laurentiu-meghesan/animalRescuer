@@ -33,7 +33,7 @@ public class App
         firstAnimal.name = "Dog";
         firstAnimal.spiritLevel = 10;
         firstAnimal.fatLevel=3;
-        firstAnimal.gener = "female";
+        firstAnimal.gender = "female";
         firstAnimal.energyLevel = 10;
 
 
@@ -45,7 +45,7 @@ public class App
         bone.expirationDate = LocalDate.of(2020,12,10);
         bone.fatLevel = 0;
 
-        System.out.println("Data de expirare: " + bone.expirationDate);
+//        System.out.println("Data de expirare: " + bone.expirationDate);
 
 
         RecreationActivity running=new RecreationActivity();
