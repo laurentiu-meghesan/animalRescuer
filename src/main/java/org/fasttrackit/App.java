@@ -7,12 +7,12 @@ public class App
     public static void main( String[] args )
     {
 
-        Adopter firstAdopter = new Adopter("Laurentiu", 1000, 32, "male" );
-//        firstAdopter.name = "Laurentiu";
-//        firstAdopter.cash = 1000;
-//        firstAdopter.gender = "male";
-//        firstAdopter.age = 32;
-        firstAdopter.patienceLevel=8;
+        Rescuer firstRescuer = new Rescuer("Laurentiu", 1000, 32, "male" );
+//        firstRescuer.name = "Laurentiu";
+//        firstRescuer.cash = 1000;
+//        firstRescuer.gender = "male";
+//        firstRescuer.age = 32;
+        firstRescuer.patienceLevel=8;
 
 
         Animal firstAnimal = new Animal("Dog", 1, "female");
@@ -54,9 +54,9 @@ public class App
         firstVet.price=80;
 
 
-        Adopter secAdopter = new Adopter("Alexandru", 1200, 31,"male");
-//        secAdopter.name= "Alexandru";
-//        secAdopter.cash = 1200;
+        Rescuer secRescuer = new Rescuer("Alexandru", 1200, 31,"male");
+//        secRescuer.name= "Alexandru";
+//        secRescuer.cash = 1200;
 
 
 
