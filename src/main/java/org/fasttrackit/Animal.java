@@ -4,16 +4,18 @@ public class Animal {
 
     String name;
     int age;
-    byte healthLevel;
-    byte hungerLevel;
-    byte spiritLevel;
+    int healthLevel;
+    int hungerLevel;
+    int spiritLevel;
     String favoriteFood;
     String favoriteRecreation;
-    byte fatLevel;
+    int fatLevel;
     String gender;
-    byte energyLevel;
+    int energyLevel;
 
-    public Animal (String name, int age, String gender){
-
-    };
+    public Animal(String name, int age, String gender) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+    }
 }

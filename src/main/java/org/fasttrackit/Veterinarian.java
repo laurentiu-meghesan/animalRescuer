@@ -5,11 +5,11 @@ public class Veterinarian {
     String name;
     String specialization;
     int age;
-    byte patience;
+    int patience;
     int price;
 
-    public Veterinarian(String name, String specialization){
-
-    };
-
+    public Veterinarian(String name, String specialization) {
+        this.name = name;
+        this.specialization = specialization;
+    }
 }

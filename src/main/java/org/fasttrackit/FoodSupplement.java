@@ -1,12 +1,13 @@
 package org.fasttrackit;
 
+import java.time.LocalDate;
+
 public class FoodSupplement extends Food{
 
-    byte mineralsLevel;
-    byte vitaminsLevel;
+    int mineralsLevel;
+    int vitaminsLevel;
 
-    public FoodSupplement(String name,int price,byte fatLevel){
-
-    };
-
+    public FoodSupplement(String name, int price, LocalDate expirationDate) {
+        super(name, price, expirationDate);
+    }
 }

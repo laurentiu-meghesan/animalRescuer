@@ -8,7 +8,12 @@ public class Food {
     int price;
     int quantity;
     boolean availability;
-    byte fatLevel;
+    int fatLevel;
     LocalDate expirationDate;
 
+    public Food(String name, int price, LocalDate expirationDate) {
+        this.name = name;
+        this.price = price;
+        this.expirationDate = expirationDate;
+    }
 }

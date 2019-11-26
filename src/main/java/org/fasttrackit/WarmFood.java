@@ -4,12 +4,10 @@ import java.time.LocalDate;
 
 public class WarmFood extends Food {
 
-    byte proteinLevel;
-    byte carbohydratesLevel;
+    int proteinLevel;
+    int carbohydratesLevel;
 
-    public WarmFood(String name, int price, byte fatLevel){
-
-    };
-
-
+    public WarmFood(String name, int price, LocalDate expirationDate) {
+        super(name, price, expirationDate);
+    }
 }
