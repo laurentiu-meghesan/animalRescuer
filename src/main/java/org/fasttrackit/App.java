@@ -7,42 +7,37 @@ public class App
     public static void main( String[] args )
     {
         Rescuer firstRescuer = new Rescuer("Laurentiu", 1000, 32, "male" );
-        firstRescuer.patienceLevel=8;
+        firstRescuer.setPatienceLevel(8);
 
         Animal firstAnimal = new Animal("Kevin", 1, "male");
-        firstAnimal.favoriteFood = "Bone";
-        firstAnimal.favoriteRecreation = "Running";
-        firstAnimal.healthLevel = 10;
-        firstAnimal.hungerLevel = 10;
-        firstAnimal.spiritLevel = 10;
-        firstAnimal.fatLevel=3;
-        firstAnimal.energyLevel = 10;
+        firstAnimal.setFavoriteFood("Bone");
+        firstAnimal.setFavoriteRecreation("Running");
+        firstAnimal.setHealthLevel(10);
+        firstAnimal.setHungerLevel(10);
+        firstAnimal.setSpiritLevel(10);
+        firstAnimal.setFatLevel(3);
+        firstAnimal.setEnergyLevel(10);
 
         Food food = new Food("Bone", 50,LocalDate.of(2020,12,10));
-        food.availability = true;
-        food.quantity = 10;
+        food.setAvailability(true);
+        food.setQuantity(10);
 //      bone.expirationDate = LocalDate.of(2020,12,10);
-        food.fatLevel = 0;
+        food.setFatLevel(0);
 
         RecreationActivity running=new RecreationActivity("Running");
 //      running.name = "Running";
-        running.spiritLevelGrow = 3;
-        running.foodConsuption=3;
-        running.minuteLasting = 10;
+        running.setFoodConsuption(3);
+        running.setMinuteLasting(10);
 
         firstRescuer.feedAnimal(firstAnimal,food);
         firstRescuer.recreation(firstAnimal,running);
 
         Veterinarian firstVet=new Veterinarian("Nenea Ilie", "General Medicine");
-        firstVet.age = 62;
-        firstVet.patience=7;
-        firstVet.price=80;
-
+        firstVet.setAge(62);
+        firstVet.setPatience(7);
+        firstVet.setPrice(80);
 
         Rescuer secRescuer = new Rescuer("Alexandru", 1200, 31,"male");
-
-
-
 
 
     }
