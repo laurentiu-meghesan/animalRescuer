@@ -18,4 +18,7 @@ public class Animal {
         this.age = age;
         this.gender = gender;
     }
+
+
+
 }
