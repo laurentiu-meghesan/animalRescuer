@@ -19,6 +19,10 @@ public class Animal {
         this.gender = gender;
     }
 
+    public void happy(){
+        System.out.println("Grr...");
+    }
+
     public String getName() {
         return name;
     }
