@@ -21,7 +21,7 @@ public class Rescuer {
         animal.setHungerLevel(animal.getHungerLevel()-1);
         System.out.println("New hunger level is: " + animal.getHungerLevel());
 
-        if (food.getName()==animal.getFavoriteFood()){
+        if (food.getName().equals(animal.getFavoriteFood())){
             animal.setSpiritLevel(animal.getSpiritLevel()+1);
             if (animal.getSpiritLevel()<=10) {
                 System.out.println("You give " + animal.getName() + " " + animal.getFavoriteFood() +
