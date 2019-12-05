@@ -7,14 +7,33 @@ public class App {
         Rescuer firstRescuer = new Rescuer("Laurentiu", 1000, 32, "male");
         firstRescuer.setPatienceLevel(8);
 
-        Dog firstAnimal = new Dog("Kevin", 1, "male");
-        firstAnimal.setFavoriteFood("Bone");
-        firstAnimal.setFavoriteRecreation("Running");
-        firstAnimal.setHealthLevel(10);
-        firstAnimal.setHungerLevel(10);
-        firstAnimal.setSpiritLevel(10);
-        firstAnimal.setFatLevel(3);
-        firstAnimal.setEnergyLevel(10);
+        Animal dog = new Dog("Kevin", 1, "male");
+        dog.setFavoriteFood("Bone");
+        dog.setFavoriteRecreation("Running");
+        dog.setHealthLevel(10);
+        dog.setHungerLevel(9);
+        dog.setSpiritLevel(10);
+        dog.setFatLevel(5);
+        dog.setEnergyLevel(10);
+
+        Animal koala = new Animal("Coco", 2, "female");
+        koala.setFavoriteFood("banana");
+        koala.setFavoriteRecreation("sleeping");
+        koala.setHungerLevel(7);
+        koala.setHealthLevel(10);
+        koala.setSpiritLevel(8);
+        koala.setFatLevel(2);
+        koala.setEnergyLevel(6);
+
+        Animal cat = new Cat("Milo", 1, "male");
+        cat.setFavoriteFood("fish");
+        cat.setFavoriteRecreation("play with the ball");
+        cat.setHungerLevel(5);
+        cat.setHealthLevel(9);
+        cat.setSpiritLevel(7);
+        cat.setFatLevel(4);
+        cat.setEnergyLevel(8);
+
 
         Food food = new Food("Bone", 50, LocalDate.of(2020, 12, 10));
         food.setAvailability(true);
@@ -27,10 +46,13 @@ public class App {
         running.setFoodConsuption(3);
         running.setMinuteLasting(10);
 
-
-        firstRescuer.feedAnimal(firstAnimal, food);
-        firstRescuer.recreation(firstAnimal, running);
-        firstAnimal.happy();
+        System.out.println(koala.toString());
+        System.out.println(cat.toString());
+        firstRescuer.feedAnimal(dog, food);
+        firstRescuer.recreation(dog, running);
+        dog.happy();
+        cat.happy();
+        koala.happy();
 
         Veterinarian firstVet = new Veterinarian("Nenea Ilie", "General Medicine");
         firstVet.setAge(62);

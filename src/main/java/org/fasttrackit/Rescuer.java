@@ -15,39 +15,38 @@ public class Rescuer {
         this.gender = gender;
     }
 
-    public void feedAnimal(Animal animal,Food food){
-        System.out.println(name+" just give some "+food.getName()+" food to "+animal.getName() +".");
+    public void feedAnimal(Animal animal, Food food) {
+        System.out.println(name + " just give some " + food.getName() + " food to " + animal.getName() + ".");
         System.out.println(animal.getName() + " eats...");
-        animal.setHungerLevel(animal.getHungerLevel()-1);
+        animal.setHungerLevel(animal.getHungerLevel() - 1);
         System.out.println("New hunger level is: " + animal.getHungerLevel());
 
-        if (food.getName().equals(animal.getFavoriteFood())){
-            animal.setSpiritLevel(animal.getSpiritLevel()+1);
-            if (animal.getSpiritLevel()<=10) {
+        if (food.getName().equals(animal.getFavoriteFood())) {
+            animal.setSpiritLevel(animal.getSpiritLevel() + 1);
+            if (animal.getSpiritLevel() <= 10) {
                 System.out.println("You give " + animal.getName() + " " + animal.getFavoriteFood() +
                         ", his favorite food and the new Spirit level is " + animal.getSpiritLevel());
-            }else{
+            } else {
                 animal.setSpiritLevel(10);
                 System.out.println("You give " + animal.getName() + " " + animal.getFavoriteFood() +
                         " ,his favorite food, but his spirit level is allready maximum of "
-                        + animal.getSpiritLevel()+".");
+                        + animal.getSpiritLevel() + ".");
             }
         }
     }
 
-    public void recreation(Animal animal,RecreationActivity recreationActivity){
-        System.out.println(name+" is "+ recreationActivity.getName() + " with "+animal.getName() + "! <3 <3");
-        if (recreationActivity.getName()==animal.getFavoriteRecreation()){
-            animal.setSpiritLevel(animal.getSpiritLevel()+2);
-        }else
-            animal.setSpiritLevel(animal.getSpiritLevel()+1);
+    public void recreation(Animal animal, RecreationActivity recreationActivity) {
+        System.out.println(name + " is " + recreationActivity.getName() + " with " + animal.getName() + "! <3 <3");
+        if (recreationActivity.getName() == animal.getFavoriteRecreation()) {
+            animal.setSpiritLevel(animal.getSpiritLevel() + 2);
+        } else
+            animal.setSpiritLevel(animal.getSpiritLevel() + 1);
 
-        if (animal.getSpiritLevel()<=10){
-            System.out.println("The new spirit level is: "+ animal.getSpiritLevel());
-        }
-        else {
+        if (animal.getSpiritLevel() <= 10) {
+            System.out.println("The new spirit level is: " + animal.getSpiritLevel());
+        } else {
             animal.setSpiritLevel(10);
-            System.out.println(animal.getName() +"`s spirit level is allready maximum of "+animal.getSpiritLevel());
+            System.out.println(animal.getName() + "`s spirit level is allready maximum of " + animal.getSpiritLevel());
         }
     }
 

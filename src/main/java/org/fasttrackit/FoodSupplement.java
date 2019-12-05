@@ -2,7 +2,7 @@ package org.fasttrackit;
 
 import java.time.LocalDate;
 
-public class FoodSupplement extends Food{
+public class FoodSupplement extends Food {
 
     private int mineralsLevel;
     private int vitaminsLevel;

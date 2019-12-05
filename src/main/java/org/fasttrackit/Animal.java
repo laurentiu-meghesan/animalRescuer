@@ -19,7 +19,7 @@ public class Animal {
         this.gender = gender;
     }
 
-    public void happy(){
+    public void happy() {
         System.out.println("Grr...");
     }
 
@@ -101,5 +101,21 @@ public class Animal {
 
     public void setEnergyLevel(int energyLevel) {
         this.energyLevel = energyLevel;
+    }
+
+    @Override
+    public String toString() {
+        return "Animal{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", healthLevel=" + healthLevel +
+                ", hungerLevel=" + hungerLevel +
+                ", spiritLevel=" + spiritLevel +
+                ", favoriteFood='" + favoriteFood + '\'' +
+                ", favoriteRecreation='" + favoriteRecreation + '\'' +
+                ", fatLevel=" + fatLevel +
+                ", gender='" + gender + '\'' +
+                ", energyLevel=" + energyLevel +
+                '}';
     }
 }
