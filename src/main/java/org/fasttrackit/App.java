@@ -61,6 +61,8 @@ public class App {
 
         Rescuer secRescuer = new Rescuer("Alexandru", 1200, 31, "male");
 
+        Game game = new Game(firstRescuer, dog,firstVet);
+        game.start();
 
     }
 }

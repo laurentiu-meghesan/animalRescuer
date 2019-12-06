@@ -5,6 +5,7 @@ public class RecreationActivity {
     private String name;
     private int foodConsuption;
     private int minuteLasting;
+    private int spiritGrow;
 
     public RecreationActivity(String name) {
         this.name = name;
@@ -33,5 +34,13 @@ public class RecreationActivity {
 
     public void setMinuteLasting(int minuteLasting) {
         this.minuteLasting = minuteLasting;
+    }
+
+    public int getSpiritGrow() {
+        return spiritGrow;
+    }
+
+    public void setSpiritGrow(int spiritGrow) {
+        this.spiritGrow = spiritGrow;
     }
 }
