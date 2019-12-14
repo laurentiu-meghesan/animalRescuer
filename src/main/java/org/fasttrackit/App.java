@@ -4,10 +4,11 @@ import java.time.LocalDate;
 
 public class App {
     public static void main(String[] args) {
-        Rescuer firstRescuer = new Rescuer("Laurentiu", 1000, 32, "male");
+
+/*        Rescuer firstRescuer = new Rescuer("Laurentiu", 1000, 32, "male");
         firstRescuer.setPatienceLevel(8);
 
-        Animal dog = new Dog("Kevin", 1, "male");
+        Animal dog = new Dog("Kevin", 5, "male");
         dog.setFavoriteFood("Bone");
         dog.setFavoriteRecreation("Running");
         dog.setHealthLevel(10);
@@ -59,9 +60,9 @@ public class App {
         firstVet.setPatience(7);
         firstVet.setPrice(80);
 
-        Rescuer secRescuer = new Rescuer("Alexandru", 1200, 31, "male");
+        Rescuer secRescuer = new Rescuer("Alexandru", 1200, 31, "male");*/
 
-        Game game = new Game(firstRescuer, dog,firstVet);
+        Game game = new Game();
         game.start();
 
     }

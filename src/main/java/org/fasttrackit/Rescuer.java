@@ -50,6 +50,17 @@ public class Rescuer {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Rescuer{" +
+                "name='" + name + '\'' +
+                ", cash=" + cash +
+                ", age=" + age +
+                ", gender='" + gender + '\'' +
+                ", patienceLevel=" + patienceLevel +
+                '}';
+    }
+
     public String getName() {
         return name;
     }

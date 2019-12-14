@@ -8,7 +8,6 @@ public class Dog extends Animal {
 
     public void happy() {
         System.out.println(getName() + " is wagging its tail! <3 ");
-
     }
 
     @Override

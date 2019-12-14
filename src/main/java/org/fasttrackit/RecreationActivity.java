@@ -19,7 +19,6 @@ public class RecreationActivity {
         this.name = name;
     }
 
-
     public int getFoodConsuption() {
         return foodConsuption;
     }
