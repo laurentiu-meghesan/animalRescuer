@@ -36,8 +36,9 @@ public class Game {
 
         initFood();
         initActivities();
-        printingFood();
-        printingActivities();
+
+        requireFeeding(rescuer, selectedAnimal);
+        requireActivity(rescuer, selectedAnimal);
 
     }
 
@@ -45,8 +46,8 @@ public class Game {
         Animal dog = new Dog("Dog", 1, "male");
         dog.setEnergyLevel(ThreadLocalRandom.current().nextInt(4, 10));
         dog.setFatLevel(ThreadLocalRandom.current().nextInt(1, 6));
-        dog.setSpiritLevel(ThreadLocalRandom.current().nextInt(5, 9));
-        dog.setFavoriteFood("Bone");
+        dog.setSpiritLevel(ThreadLocalRandom.current().nextInt(3, 6));
+        dog.setFavoriteFood("bone");
         dog.setFavoriteRecreation("pet");
         dog.setHealthLevel(ThreadLocalRandom.current().nextInt(7, 10));
         dog.setHungerLevel(ThreadLocalRandom.current().nextInt(3, 8));
@@ -56,8 +57,8 @@ public class Game {
         Animal cat = new Cat("Cat", 1, "female");
         cat.setEnergyLevel(ThreadLocalRandom.current().nextInt(4, 10));
         cat.setFatLevel(ThreadLocalRandom.current().nextInt(1, 6));
-        cat.setSpiritLevel(ThreadLocalRandom.current().nextInt(5, 9));
-        cat.setFavoriteFood("Meat");
+        cat.setSpiritLevel(ThreadLocalRandom.current().nextInt(3, 6));
+        cat.setFavoriteFood("meat");
         cat.setFavoriteRecreation("pet");
         cat.setHealthLevel(ThreadLocalRandom.current().nextInt(7, 10));
         cat.setHungerLevel(ThreadLocalRandom.current().nextInt(3, 8));
@@ -67,8 +68,8 @@ public class Game {
         Animal koala = new Animal("Koala", 2, "female");
         koala.setEnergyLevel(ThreadLocalRandom.current().nextInt(4, 10));
         koala.setFatLevel(ThreadLocalRandom.current().nextInt(1, 6));
-        koala.setSpiritLevel(ThreadLocalRandom.current().nextInt(5, 9));
-        koala.setFavoriteFood("Banana");
+        koala.setSpiritLevel(ThreadLocalRandom.current().nextInt(3, 6));
+        koala.setFavoriteFood("banana");
         koala.setFavoriteRecreation("sleep");
         koala.setHealthLevel(ThreadLocalRandom.current().nextInt(7, 10));
         koala.setHungerLevel(ThreadLocalRandom.current().nextInt(3, 8));
@@ -119,7 +120,7 @@ public class Game {
     }
 
     private void nameAnimal(Animal selectedAnimal) {
-        System.out.println("Please enter the desired name for your " + selectedAnimal.getName());
+        System.out.println("Please enter the desired name for your " + selectedAnimal.getName() + ".");
         Scanner scanner = new Scanner(System.in);
 
         String getAnimalNameFromUser = scanner.nextLine();
@@ -129,10 +130,91 @@ public class Game {
     private void displayPlayerAndAnimal(Rescuer rescuer, Animal selectedAnimal) {
         System.out.println(rescuer.getName() + ", age " + rescuer.getAge() + " is trying to rescue " +
                 selectedAnimal.getName() + ", who is " + selectedAnimal.getAge() + " years old." +
-                " " + rescuer.getName() + " is having " + rescuer.getCash() + "$. "+selectedAnimal.getName()+
-                "'s prefered food is "+selectedAnimal.getFavoriteFood()+" and favourite recreational activity is "+
-                selectedAnimal.getFavoriteRecreation()+".");
+                " " + rescuer.getName() + " is having " + rescuer.getCash() + "$. " + selectedAnimal.getName() +
+                "'s prefered food is " + selectedAnimal.getFavoriteFood() + " and favourite recreational activity is " +
+                selectedAnimal.getFavoriteRecreation() + ".");
+        System.out.println(selectedAnimal.getName() + "'s hunger level is " + selectedAnimal.getHungerLevel() +
+                ", spirit level " + selectedAnimal.getSpiritLevel() + ", health level " + selectedAnimal.getHealthLevel() +
+                ", energy level " + selectedAnimal.getEnergyLevel() + " and fat level is " + selectedAnimal.getFatLevel());
 
+    }
+
+    private void requireFeeding(Rescuer rescuer, Animal selectedAnimal) {
+        System.out.println("Do you want to feed your animal?(type y for yes, n if no)");
+        Scanner scanner = new Scanner(System.in);
+        String c = scanner.nextLine();
+        if (c.equals("y") | c.equals("Y")) {
+            int i = 1;
+            System.out.println("Available food:");
+            for (Food food : availableFood) {
+                System.out.println((i++) + ". " + food.getName());
+            }
+            Scanner scanner1 = new Scanner(System.in);
+            int selectedFood = scanner1.nextInt() - 1;
+            try {
+                if (selectedFood < availableFood.size()) {
+                    rescuer.feedAnimal(selectedAnimal, availableFood.get(selectedFood));
+                    rescuer.setCash(rescuer.getCash() - availableFood.get(selectedFood).getPrice());
+                    System.out.println("After you feed " + selectedAnimal.getName() + " with " +
+                            availableFood.get(selectedFood).getName() + ", your new budget is " +
+                            rescuer.getCash() + "$.");
+
+                } else
+                    System.out.println("You want to give " + selectedAnimal.getName() +
+                            " a non existing or unavailable food.");
+            } catch (Exception e) {
+                System.out.println("You want to give " + selectedAnimal.getName() +
+                        " a non existing or unavailable food.");
+            }
+
+        } else if (c.equals("n") | c.equals("N")) {
+            System.out.println("Ok, thank you. " + selectedAnimal.getName() + "'s hunger level is " +
+                    selectedAnimal.getHungerLevel() + ".");
+        } else {
+            System.out.println("Answer with yes or no please.");
+            requireFeeding(rescuer, selectedAnimal);
+        }
+    }
+
+    private void requireActivity(Rescuer rescuer, Animal selectedAnimal) {
+        System.out.println("Do you want to make some activity with " + selectedAnimal.getName() +
+                "?(type y for yes, n if no)");
+        Scanner scanner = new Scanner(System.in);
+        String c = scanner.nextLine();
+        if (c.equals("y") | c.equals("Y")) {
+            System.out.println("Available activities are:");
+            for (int i = 0; i < availableActivities.length; i++) {
+                if (availableActivities[i] != null)
+                    System.out.println((i + 1) + ". " + availableActivities[i].getName());
+            }
+            Scanner scanner1 = new Scanner(System.in);
+            int selectedActivity = scanner1.nextInt() - 1;
+            try {
+                if (selectedActivity < availableActivities.length){
+                    rescuer.recreation(selectedAnimal,availableActivities[selectedActivity]);
+                    if (availableActivities[selectedActivity].getName().equals(availableActivities[0].getName())){
+                        //if selected activity is running, then the animal will be hungrier and health level will decrease
+                        selectedAnimal.setHungerLevel(selectedAnimal.getHungerLevel()+2);
+                        selectedAnimal.setHealthLevel(selectedAnimal.getHealthLevel()-1);
+                    }else if (availableActivities[selectedActivity].getName().equals(availableActivities[2].getName())){
+                        selectedAnimal.setHungerLevel(selectedAnimal.getHungerLevel()+2);
+                        selectedAnimal.setHealthLevel(selectedAnimal.getHealthLevel()+1);
+                    }
+                }
+
+            } catch (Exception e) {
+                System.out.println("You want to do an activity with " + selectedAnimal.getName() +
+                        " that does not exist.");
+            }
+
+        } else if (c.equals("n") | c.equals("N")) {
+            System.out.println("Ok, thank you. " + selectedAnimal.getName() + "'s spirit level is " +
+                    selectedAnimal.getSpiritLevel() + ".");
+        } else {
+            System.out.println("Answer with yes or no please.");
+            requireActivity(rescuer, selectedAnimal);
+        }
+        System.out.println(selectedAnimal.toString());
     }
 
     private void initFood() {
@@ -153,25 +235,9 @@ public class Game {
         availableActivities[0] = act1;
         RecreationActivity act2 = new RecreationActivity("pet");
         availableActivities[1] = act2;
-        RecreationActivity act3 = new RecreationActivity("sleeping");
+        RecreationActivity act3 = new RecreationActivity("sleep");
         availableActivities[2] = act3;
 
-    }
-
-    public void printingFood() {
-        int i = 1;
-        for (Food food : availableFood) {
-
-            System.out.println("Available food : " + (i++) + ". " + food.getName());
-        }
-    }
-
-    public void printingActivities() {
-
-        for (int i = 0; i < availableActivities.length; i++) {
-            if (availableActivities[i] != null)
-                System.out.println("Available activities : " + (i + 1) + ". " + availableActivities[i].getName());
-        }
     }
 }
 

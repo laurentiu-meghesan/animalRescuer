@@ -16,7 +16,7 @@ public class Rescuer {
     }
 
     public void feedAnimal(Animal animal, Food food) {
-        System.out.println(name + " just give some " + food.getName() + " food to " + animal.getName() + ".");
+        System.out.println(name + " just give some " + food.getName() + " to " + animal.getName() + ".");
         System.out.println(animal.getName() + " eats...");
         animal.setHungerLevel(animal.getHungerLevel() - 1);
         System.out.println("New hunger level is: " + animal.getHungerLevel());
@@ -29,7 +29,7 @@ public class Rescuer {
             } else {
                 animal.setSpiritLevel(10);
                 System.out.println("You give " + animal.getName() + " " + animal.getFavoriteFood() +
-                        " ,his favorite food, but his spirit level is allready maximum of "
+                        " ,his favorite food, but his spirit level is already maximum of "
                         + animal.getSpiritLevel() + ".");
             }
         }
@@ -37,8 +37,10 @@ public class Rescuer {
 
     public void recreation(Animal animal, RecreationActivity recreationActivity) {
         System.out.println(name + " is " + recreationActivity.getName() + " with " + animal.getName() + "! <3 <3");
-        if (recreationActivity.getName() == animal.getFavoriteRecreation()) {
+        if (recreationActivity.getName().equals(animal.getFavoriteRecreation())) {
             animal.setSpiritLevel(animal.getSpiritLevel() + 2);
+            System.out.println(animal.getName() + "'s favourite activity is " + animal.getFavoriteRecreation() +
+                    " and because you chose favourite activity, the new spirit level is increasing by 2.");
         } else
             animal.setSpiritLevel(animal.getSpiritLevel() + 1);
 
@@ -46,7 +48,7 @@ public class Rescuer {
             System.out.println("The new spirit level is: " + animal.getSpiritLevel());
         } else {
             animal.setSpiritLevel(10);
-            System.out.println(animal.getName() + "`s spirit level is allready maximum of " + animal.getSpiritLevel());
+            System.out.println(animal.getName() + "`s spirit level is already maximum of " + animal.getSpiritLevel());
         }
     }
 
