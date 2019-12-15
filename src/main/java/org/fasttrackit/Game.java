@@ -64,11 +64,11 @@ public class Game {
                     System.out.println();
                     requireFeeding(rescuer, selectedAnimal);
                     requireActivity(rescuer, selectedAnimal);
-                    if (maximumSpiritLevelIsNotReached == false) {
+                    if (!maximumSpiritLevelIsNotReached) {
                         System.out.println("You helped " + selectedAnimal.getName() + " to reach maximum spirit level and " +
                                 "he is very happy. Congratulations, " + rescuer.getName() + "! You won the game!");
                         break;
-                    } else if (animalIsNotStarving == false | enoughMoney == false) {
+                    } else if (!animalIsNotStarving | !enoughMoney) {
                         System.out.println("Sorry, you lost the game!");
                         break;
                     }
@@ -291,13 +291,13 @@ public class Game {
 
     private void initFood() {
 
-        Food food1 = new Food("meat", 300, LocalDate.of(2020, 03, 15));
+        Food food1 = new Food("meat", 300, LocalDate.of(2020, 3, 15));
         availableFood.add(food1);
         Food food2 = new Food("bone", 250, LocalDate.of(2020, 12, 20));
         availableFood.add(food2);
-        Food food3 = new Food("banana", 150, LocalDate.of(2020, 06, 06));
+        Food food3 = new Food("banana", 150, LocalDate.of(2020, 6, 6));
         availableFood.add(food3);
-        Food food4 = new FoodSupplement("vitamins", 200, LocalDate.of(2022, 04, 30));
+        Food food4 = new FoodSupplement("vitamins", 200, LocalDate.of(2022, 4, 30));
         availableFood.add(food4);
     }
 
