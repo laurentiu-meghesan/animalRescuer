@@ -22,6 +22,9 @@ public class Game {
     private Animal[] availableAnimals = new Animal[3];
     private List<Food> availableFood = new ArrayList<>();
     private RecreationActivity[] availableActivities = new RecreationActivity[5];
+    private boolean maximumSpiritLevelIsNotReached = true;
+    private boolean animalIsNotStarving = true;
+    private boolean enoughMoney = true;
 
     public void start() {
 
@@ -37,9 +40,44 @@ public class Game {
         initFood();
         initActivities();
 
-        requireFeeding(rescuer, selectedAnimal);
-        requireActivity(rescuer, selectedAnimal);
+        System.out.println("How do you want to play the game?" + '\n' + "1. Play until maxim spirit level is reached," +
+                " you don't have enough money or animal is starving." + '\n' + "2. Play an entered number of rounds.");
+        Scanner scanner = new Scanner(System.in);
+        int playerChoose = scanner.nextInt();
 
+        switch (playerChoose) {
+
+//      we can play until maxim spirit level is reached, you don't have enough money or animal is starving
+            case 1: {
+                while (maximumSpiritLevelIsNotReached && animalIsNotStarving && enoughMoney) {
+                    System.out.println();
+                    requireFeeding(rescuer, selectedAnimal);
+                    requireActivity(rescuer, selectedAnimal);
+                }
+            }
+//      or we can ask the user to input how many rounds he want to play
+            case 2: {
+                System.out.println("How many rounds do you want to play?");
+                Scanner scanner1 = new Scanner(System.in);
+                int nrRounds = scanner1.nextInt();
+                for (int i = 1; i <= nrRounds; i++) {
+                    System.out.println();
+                    requireFeeding(rescuer, selectedAnimal);
+                    requireActivity(rescuer, selectedAnimal);
+                    if (maximumSpiritLevelIsNotReached == false) {
+                        System.out.println("You helped " + selectedAnimal.getName() + " to reach maximum spirit level and " +
+                                "he is very happy. Congratulations, " + rescuer.getName() + "! You won the game!");
+                        break;
+                    } else if (animalIsNotStarving == false | enoughMoney == false) {
+                        System.out.println("Sorry, you lost the game!");
+                        break;
+                    }
+                }
+            }
+            default: {
+                System.out.println("You did not enter a valid gameplay.");
+            }
+        }
     }
 
     private void initAnimal() {
@@ -49,7 +87,7 @@ public class Game {
         dog.setSpiritLevel(ThreadLocalRandom.current().nextInt(3, 6));
         dog.setFavoriteFood("bone");
         dog.setFavoriteRecreation("pet");
-        dog.setHealthLevel(ThreadLocalRandom.current().nextInt(7, 10));
+        dog.setHealthLevel(ThreadLocalRandom.current().nextInt(5, 10));
         dog.setHungerLevel(ThreadLocalRandom.current().nextInt(3, 8));
 
         availableAnimals[0] = dog;
@@ -60,7 +98,7 @@ public class Game {
         cat.setSpiritLevel(ThreadLocalRandom.current().nextInt(3, 6));
         cat.setFavoriteFood("meat");
         cat.setFavoriteRecreation("pet");
-        cat.setHealthLevel(ThreadLocalRandom.current().nextInt(7, 10));
+        cat.setHealthLevel(ThreadLocalRandom.current().nextInt(5, 10));
         cat.setHungerLevel(ThreadLocalRandom.current().nextInt(3, 8));
 
         availableAnimals[1] = cat;
@@ -71,7 +109,7 @@ public class Game {
         koala.setSpiritLevel(ThreadLocalRandom.current().nextInt(3, 6));
         koala.setFavoriteFood("banana");
         koala.setFavoriteRecreation("sleep");
-        koala.setHealthLevel(ThreadLocalRandom.current().nextInt(7, 10));
+        koala.setHealthLevel(ThreadLocalRandom.current().nextInt(5, 10));
         koala.setHungerLevel(ThreadLocalRandom.current().nextInt(3, 8));
 
         availableAnimals[2] = koala;
@@ -155,9 +193,30 @@ public class Game {
                 if (selectedFood < availableFood.size()) {
                     rescuer.feedAnimal(selectedAnimal, availableFood.get(selectedFood));
                     rescuer.setCash(rescuer.getCash() - availableFood.get(selectedFood).getPrice());
-                    System.out.println("After you feed " + selectedAnimal.getName() + " with " +
-                            availableFood.get(selectedFood).getName() + ", your new budget is " +
-                            rescuer.getCash() + "$.");
+                    if (rescuer.getCash() <= 0) {
+                        System.out.println("You don't have enough money to continue. Game Over!");
+                        enoughMoney = false;
+                        System.exit(0);
+                    } else if (selectedAnimal.getSpiritLevel() >= 10) {
+                        System.out.println("You helped " + selectedAnimal.getName() + " to reach maximum spirit level and " +
+                                "he is very happy. Congratulations, " + rescuer.getName() + "! You won the game!");
+                        maximumSpiritLevelIsNotReached = false;
+                        System.exit(0);
+                    } else {
+                        System.out.println("After you feed " + selectedAnimal.getName() + " with " +
+                                availableFood.get(selectedFood).getName() + ", your new budget is " +
+                                rescuer.getCash() + "$.");
+                    }
+                    if (availableFood.get(selectedFood).equals(availableFood.get(3))) {
+                        selectedAnimal.setHealthLevel(selectedAnimal.getHealthLevel() + 1);
+                        if (selectedAnimal.getHealthLevel() >= 10) {
+                            selectedAnimal.setHealthLevel(10);
+                            System.out.println(selectedAnimal.getName() + " is very healthy! Congratulations!");
+                        }
+                    }
+                    if (selectedAnimal.getHealthLevel() >= 10) {
+                        selectedAnimal.setSpiritLevel(selectedAnimal.getSpiritLevel() + 1);
+                    }
 
                 } else
                     System.out.println("You want to give " + selectedAnimal.getName() +
@@ -171,7 +230,7 @@ public class Game {
             System.out.println("Ok, thank you. " + selectedAnimal.getName() + "'s hunger level is " +
                     selectedAnimal.getHungerLevel() + ".");
         } else {
-            System.out.println("Answer with yes or no please.");
+            System.out.println("Answer with yes(y) or no(n) please.");
             requireFeeding(rescuer, selectedAnimal);
         }
     }
@@ -190,15 +249,28 @@ public class Game {
             Scanner scanner1 = new Scanner(System.in);
             int selectedActivity = scanner1.nextInt() - 1;
             try {
-                if (selectedActivity < availableActivities.length){
-                    rescuer.recreation(selectedAnimal,availableActivities[selectedActivity]);
-                    if (availableActivities[selectedActivity].getName().equals(availableActivities[0].getName())){
+                if (selectedActivity < availableActivities.length) {
+                    rescuer.recreation(selectedAnimal, availableActivities[selectedActivity]);
+                    if (availableActivities[selectedActivity].getName().equals(availableActivities[0].getName())) {
                         //if selected activity is running, then the animal will be hungrier and health level will decrease
-                        selectedAnimal.setHungerLevel(selectedAnimal.getHungerLevel()+2);
-                        selectedAnimal.setHealthLevel(selectedAnimal.getHealthLevel()-1);
-                    }else if (availableActivities[selectedActivity].getName().equals(availableActivities[2].getName())){
-                        selectedAnimal.setHungerLevel(selectedAnimal.getHungerLevel()+2);
-                        selectedAnimal.setHealthLevel(selectedAnimal.getHealthLevel()+1);
+                        selectedAnimal.setHungerLevel(selectedAnimal.getHungerLevel() + 2);
+                        selectedAnimal.setHealthLevel(selectedAnimal.getHealthLevel() - 1);
+                    } else if (availableActivities[selectedActivity].getName().equals(availableActivities[2].getName())) {
+                        selectedAnimal.setHungerLevel(selectedAnimal.getHungerLevel() + 2);
+                        selectedAnimal.setHealthLevel(selectedAnimal.getHealthLevel() + 1);
+                    } else if (availableActivities[selectedActivity].getName().equals(availableActivities[1].getName())) {
+                        selectedAnimal.setHungerLevel(selectedAnimal.getHungerLevel() + 1);
+                    }
+                    if (selectedAnimal.getSpiritLevel() >= 10) {
+                        System.out.println("You helped " + selectedAnimal.getName() + " to reach maximum spirit level and " +
+                                "he is very happy. Congratulations, " + rescuer.getName() + "! You won the game!");
+                        maximumSpiritLevelIsNotReached = false;
+                        System.exit(0);
+                    } else if (selectedAnimal.getHungerLevel() >= 10) {
+                        System.out.println("You forgot to feed " + selectedAnimal.getName() + ". You failed to rescue the " +
+                                "animal. Game over!");
+                        animalIsNotStarving = false;
+                        System.exit(0);
                     }
                 }
 
@@ -211,7 +283,7 @@ public class Game {
             System.out.println("Ok, thank you. " + selectedAnimal.getName() + "'s spirit level is " +
                     selectedAnimal.getSpiritLevel() + ".");
         } else {
-            System.out.println("Answer with yes or no please.");
+            System.out.println("Answer with yes(y) or no(n) please.");
             requireActivity(rescuer, selectedAnimal);
         }
         System.out.println(selectedAnimal.toString());
@@ -219,13 +291,13 @@ public class Game {
 
     private void initFood() {
 
-        Food food1 = new Food("meat", 100, LocalDate.of(2020, 03, 15));
+        Food food1 = new Food("meat", 300, LocalDate.of(2020, 03, 15));
         availableFood.add(food1);
-        Food food2 = new Food("bone", 50, LocalDate.of(2020, 12, 20));
+        Food food2 = new Food("bone", 250, LocalDate.of(2020, 12, 20));
         availableFood.add(food2);
-        Food food3 = new Food("banana", 30, LocalDate.of(2020, 06, 06));
+        Food food3 = new Food("banana", 150, LocalDate.of(2020, 06, 06));
         availableFood.add(food3);
-        Food food4 = new FoodSupplement("vitamins", 120, LocalDate.of(2022, 04, 30));
+        Food food4 = new FoodSupplement("vitamins", 200, LocalDate.of(2022, 04, 30));
         availableFood.add(food4);
     }
 
