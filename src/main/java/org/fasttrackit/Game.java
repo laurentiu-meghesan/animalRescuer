@@ -9,7 +9,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 class Game {
 
-
 /*    public Game(Rescuer rescuer, Animal animal, Veterinarian veterinarian) {
         this.rescuer = rescuer;
         this.animal = animal;
@@ -42,63 +41,72 @@ class Game {
                 " you don't have enough money or animal is starving." + '\n' + "2. Play an entered number of rounds." +
                 '\n' + "3. Play only five rounds and try to win.");
         Scanner scanner = new Scanner(System.in);
-        int playerChoose = scanner.nextInt();
+        try {
+            int playerChoose = scanner.nextInt();
 
-        switch (playerChoose) {
+            switch (playerChoose) {
 
 //      we can play until maxim spirit level is reached, you don't have enough money or animal is starving
-            case 1: {
-                while (maximumSpiritLevelIsNotReached && animalIsNotStarving && enoughMoney) {
-                    System.out.println();
-                    requireFeeding(rescuer, selectedAnimal);
-                    requireActivity(rescuer, selectedAnimal);
+                case 1: {
+                    while (maximumSpiritLevelIsNotReached && animalIsNotStarving && enoughMoney) {
+                        System.out.println();
+                        requireFeeding(rescuer, selectedAnimal);
+                        requireActivity(rescuer, selectedAnimal);
+                    }
+                    break;
                 }
-            }
 //      or we can ask the user to input how many rounds he want to play
-            case 2: {
-                System.out.println("How many rounds do you want to play?");
-                Scanner scanner1 = new Scanner(System.in);
-                int nrRounds = scanner1.nextInt();
-                for (int i = 1; i <= nrRounds; i++) {
-                    System.out.println();
-                    requireFeeding(rescuer, selectedAnimal);
-                    requireActivity(rescuer, selectedAnimal);
-                    if (!maximumSpiritLevelIsNotReached) {
-                        System.out.println("You helped " + selectedAnimal.getName() + " to reach maximum spirit level and " +
-                                "he is very happy. Congratulations, " + rescuer.getName() + "! You won the game!");
-                        break;
-                    } else if (!animalIsNotStarving | !enoughMoney) {
-                        System.out.println("Sorry, you lost the game!");
-                        break;
+                case 2: {
+                    System.out.println("How many rounds do you want to play?");
+                    Scanner scanner1 = new Scanner(System.in);
+                    int nrRounds = scanner1.nextInt();
+                    for (int i = 1; i <= nrRounds; i++) {
+                        System.out.println();
+                        requireFeeding(rescuer, selectedAnimal);
+                        requireActivity(rescuer, selectedAnimal);
+                        if (!maximumSpiritLevelIsNotReached) {
+                            System.out.println("You helped " + selectedAnimal.getName() + " to reach maximum spirit level and " +
+                                    "he is very happy. Congratulations, " + rescuer.getName() + "! You won the game!");
+                            break;
+                        } else if (!animalIsNotStarving | !enoughMoney) {
+                            System.out.println("Sorry, you lost the game!");
+                            break;
+                        }
                     }
+                    break;
                 }
-            }
-            case 3: {
-                for (int i = 1; i <= 5; i++) {
-                    System.out.println();
-                    System.out.println("Round number " + i + ":");
-                    if (i == 5) {
-                        System.out.println("Final round!");
+                case 3: {
+                    for (int i = 1; i <= 5; i++) {
+                        System.out.println();
+                        System.out.println("Round number " + i + ":");
+                        if (i == 5) {
+                            System.out.println("Final round!");
+                        }
+                        requireFeeding(rescuer, selectedAnimal);
+                        requireActivity(rescuer, selectedAnimal);
+                        if (!maximumSpiritLevelIsNotReached) {
+                            System.out.println("You helped " + selectedAnimal.getName() + " to reach maximum spirit level and " +
+                                    "he is very happy. Congratulations, " + rescuer.getName() + "! You won the game!");
+                            break;
+                        } else if (!animalIsNotStarving | !enoughMoney) {
+                            System.out.println("Sorry, you lost the game!");
+                            break;
+                        }
+                        if (i == 5) {
+                            System.out.println("Gave over!");
+                        }
                     }
-                    requireFeeding(rescuer, selectedAnimal);
-                    requireActivity(rescuer, selectedAnimal);
-                    if (!maximumSpiritLevelIsNotReached) {
-                        System.out.println("You helped " + selectedAnimal.getName() + " to reach maximum spirit level and " +
-                                "he is very happy. Congratulations, " + rescuer.getName() + "! You won the game!");
-                        break;
-                    } else if (!animalIsNotStarving | !enoughMoney) {
-                        System.out.println("Sorry, you lost the game!");
-                        break;
-                    }
-                    if (i == 5) {
-                        System.out.println("Gave over!");
-                    }
-                }
+                    break;
 
+                }
+                default: {
+                    System.out.println("You did not enter a valid gameplay.");
+                    System.out.println();
+                }
             }
-            default: {
-                System.out.println("You did not enter a valid gameplay.");
-            }
+        } catch (Exception e) {
+            System.out.println("You did not enter a valid gameplay.");
+            System.out.println();
         }
     }
 
@@ -206,8 +214,8 @@ class Game {
                 System.out.println((i++) + ". " + food.getName());
             }
             Scanner scanner1 = new Scanner(System.in);
-            int selectedFood = scanner1.nextInt() - 1;
             try {
+                int selectedFood = scanner1.nextInt() - 1;
                 if (selectedFood < availableFood.size()) {
                     rescuer.feedAnimal(selectedAnimal, availableFood.get(selectedFood));
                     rescuer.setCash(rescuer.getCash() - availableFood.get(selectedFood).getPrice());
@@ -235,20 +243,22 @@ class Game {
                     if (selectedAnimal.getHealthLevel() >= 10) {
                         selectedAnimal.setSpiritLevel(selectedAnimal.getSpiritLevel() + 1);
                     }
-
-                } else
+                } else {
                     System.out.println("You want to give " + selectedAnimal.getName() +
                             " a non existing or unavailable food.");
-            } catch (Exception e) {
+                    requireFeeding(rescuer, selectedAnimal);
+                }
+            } catch (InputMismatchException | IndexOutOfBoundsException e) {
                 System.out.println("You want to give " + selectedAnimal.getName() +
                         " a non existing or unavailable food.");
+                requireFeeding(rescuer, selectedAnimal);
             }
 
         } else if (c.equals("n") | c.equals("N")) {
             System.out.println("Ok, thank you. " + selectedAnimal.getName() + "'s hunger level is " +
                     selectedAnimal.getHungerLevel() + ".");
         } else {
-            System.out.println("Answer with yes(y) or no(n) please.");
+            System.out.println("Answer with yes or no please.");
             requireFeeding(rescuer, selectedAnimal);
         }
     }
@@ -265,8 +275,8 @@ class Game {
                     System.out.println((i + 1) + ". " + availableActivities[i].getName());
             }
             Scanner scanner1 = new Scanner(System.in);
-            int selectedActivity = scanner1.nextInt() - 1;
             try {
+                int selectedActivity = scanner1.nextInt() - 1;
                 if (selectedActivity < availableActivities.length) {
                     rescuer.recreation(selectedAnimal, availableActivities[selectedActivity]);
                     if (availableActivities[selectedActivity].getName().equals(availableActivities[0].getName())) {
@@ -288,23 +298,28 @@ class Game {
                         System.out.println("You forgot to feed " + selectedAnimal.getName() + ". You failed to rescue the " +
                                 "animal. Game over!");
                         animalIsNotStarving = false;
+                        System.out.println(selectedAnimal.toString());
                         System.exit(0);
                     }
+                    System.out.println(selectedAnimal.toString());
+                } else if (selectedActivity > availableActivities.length) {
+                    System.out.println("You want to do an activity with " + selectedAnimal.getName() +
+                            " that does not exist.");
+                    requireActivity(rescuer, selectedAnimal);
                 }
-
-            } catch (Exception e) {
+            } catch (InputMismatchException | IndexOutOfBoundsException e) {
                 System.out.println("You want to do an activity with " + selectedAnimal.getName() +
                         " that does not exist.");
+                requireActivity(rescuer, selectedAnimal);
             }
 
         } else if (c.equals("n") | c.equals("N")) {
             System.out.println("Ok, thank you. " + selectedAnimal.getName() + "'s spirit level is " +
                     selectedAnimal.getSpiritLevel() + ".");
         } else {
-            System.out.println("Answer with yes(y) or no(n) please.");
+            System.out.println("Answer with yes or no please.");
             requireActivity(rescuer, selectedAnimal);
         }
-        System.out.println(selectedAnimal.toString());
     }
 
     private void initFood() {
