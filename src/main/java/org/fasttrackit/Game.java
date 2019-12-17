@@ -7,11 +7,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Game {
+class Game {
 
-    Rescuer rescuer;
-    Animal animal;
-    Veterinarian veterinarian;
 
 /*    public Game(Rescuer rescuer, Animal animal, Veterinarian veterinarian) {
         this.rescuer = rescuer;
@@ -26,7 +23,7 @@ public class Game {
     private boolean animalIsNotStarving = true;
     private boolean enoughMoney = true;
 
-    public void start() {
+    void start() {
 
         System.out.println("Starting game...");
 
@@ -40,8 +37,10 @@ public class Game {
         initFood();
         initActivities();
 
+        System.out.println();
         System.out.println("How do you want to play the game?" + '\n' + "1. Play until maxim spirit level is reached," +
-                " you don't have enough money or animal is starving." + '\n' + "2. Play an entered number of rounds.");
+                " you don't have enough money or animal is starving." + '\n' + "2. Play an entered number of rounds." +
+                '\n' + "3. Play only five rounds and try to win.");
         Scanner scanner = new Scanner(System.in);
         int playerChoose = scanner.nextInt();
 
@@ -73,6 +72,29 @@ public class Game {
                         break;
                     }
                 }
+            }
+            case 3: {
+                for (int i = 1; i <= 5; i++) {
+                    System.out.println();
+                    System.out.println("Round number " + i + ":");
+                    if (i == 5) {
+                        System.out.println("Final round!");
+                    }
+                    requireFeeding(rescuer, selectedAnimal);
+                    requireActivity(rescuer, selectedAnimal);
+                    if (!maximumSpiritLevelIsNotReached) {
+                        System.out.println("You helped " + selectedAnimal.getName() + " to reach maximum spirit level and " +
+                                "he is very happy. Congratulations, " + rescuer.getName() + "! You won the game!");
+                        break;
+                    } else if (!animalIsNotStarving | !enoughMoney) {
+                        System.out.println("Sorry, you lost the game!");
+                        break;
+                    }
+                    if (i == 5) {
+                        System.out.println("Gave over!");
+                    }
+                }
+
             }
             default: {
                 System.out.println("You did not enter a valid gameplay.");
@@ -129,10 +151,7 @@ public class Game {
             Animal selectedAnimal = availableAnimals[selectedAnimalNumber - 1];
             System.out.println("Selected animal is " + selectedAnimal.getName() + ".");
             return selectedAnimal;
-        } catch (InputMismatchException e) {
-            System.out.println("You have entered an invalid value.");
-            return getSelectedAnimalFromUser();
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
             System.out.println("You have entered an invalid value.");
             return getSelectedAnimalFromUser();
         }
@@ -148,9 +167,8 @@ public class Game {
             Scanner scanner2 = new Scanner(System.in);
             String userGender = scanner2.nextLine();
 
-            Rescuer rescuer = new Rescuer(userName, ThreadLocalRandom.current().nextInt(1000, 2000),
+            return new Rescuer(userName, ThreadLocalRandom.current().nextInt(1000, 2000),
                     userAge, userGender);
-            return rescuer;
         } catch (Exception e) {
             System.out.println("You entered invalid data! Please try again.");
             return initUser();
