@@ -8,7 +8,6 @@ public class Cat extends Animal {
     @Override
     public void happy() {
         System.out.println(getName() + " purrs! <3 ");
-        ;
     }
 
     @Override
