@@ -6,6 +6,8 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class Game {
 
@@ -170,15 +172,38 @@ class Game {
         try {
             Scanner scanner = new Scanner(System.in);
             String userName = scanner.nextLine();
+
+            boolean hasNonLetters = false;
+            for (char ch : userName.toCharArray()) {
+                if (!Character.isLetter(ch)) {
+                    hasNonLetters = true;
+                    break;
+                }
+            }
+            if (hasNonLetters) {
+                System.out.println("You did't entered a valid name. A name must contain only letters.");
+                System.out.println();
+                return initUser();
+            }
+
             Scanner scanner1 = new Scanner(System.in);
             int userAge = scanner1.nextInt();
+            scanner1.nextLine();
             Scanner scanner2 = new Scanner(System.in);
             String userGender = scanner2.nextLine();
+
+
+/*            if (!userGender.matches(String.format("male")) | !userGender.matches(String.format("female"))){
+                System.out.println("You did not enter a valid gander. Please type \"male\" or \"female\". ");
+                System.out.println();
+                return initUser();
+            }*/
 
             return new Rescuer(userName, ThreadLocalRandom.current().nextInt(1000, 2000),
                     userAge, userGender);
         } catch (Exception e) {
             System.out.println("You entered invalid data! Please try again.");
+            System.out.println();
             return initUser();
         }
     }
@@ -188,7 +213,19 @@ class Game {
         Scanner scanner = new Scanner(System.in);
 
         String getAnimalNameFromUser = scanner.nextLine();
-        selectedAnimal.setName(getAnimalNameFromUser);
+
+        boolean hasNonLetters = false;
+        for (char ch : getAnimalNameFromUser.toCharArray()) {
+            if (!Character.isLetter(ch)) {
+                hasNonLetters = true;
+            }
+        }
+        if (hasNonLetters) {
+            System.out.println("You did't entered a valid name.");
+            nameAnimal(selectedAnimal);
+        } else {
+            selectedAnimal.setName(getAnimalNameFromUser);
+        }
     }
 
     private void displayPlayerAndAnimal(Rescuer rescuer, Animal selectedAnimal) {

@@ -13,7 +13,7 @@ public class Animal {
     private String gender;
     private int energyLevel;
 
-    public Animal(String name, int age, String gender) {
+    Animal(String name, int age, String gender) {
         this.name = name;
         this.age = age;
         this.gender = gender;

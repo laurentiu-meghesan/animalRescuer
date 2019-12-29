@@ -8,14 +8,14 @@ public class Rescuer {
     private String gender;
     private int patienceLevel;
 
-    public Rescuer(String name, int cash, int age, String gender) {
+    Rescuer(String name, int cash, int age, String gender) {
         this.name = name;
         this.cash = cash;
         this.age = age;
         this.gender = gender;
     }
 
-    public void feedAnimal(Animal animal, Food food) {
+    void feedAnimal(Animal animal, Food food) {
         System.out.println(name + " just give some " + food.getName() + " to " + animal.getName() + ".");
         System.out.println(animal.getName() + " eats...");
         animal.setHungerLevel(animal.getHungerLevel() - 1);
@@ -26,6 +26,7 @@ public class Rescuer {
             if (animal.getSpiritLevel() <= 10) {
                 System.out.println("You give " + animal.getName() + " " + animal.getFavoriteFood() +
                         ", his favorite food and the new Spirit level is " + animal.getSpiritLevel());
+                animal.happy();
             } else {
                 animal.setSpiritLevel(10);
                 System.out.println("You give " + animal.getName() + " " + animal.getFavoriteFood() +
@@ -35,12 +36,13 @@ public class Rescuer {
         }
     }
 
-    public void recreation(Animal animal, RecreationActivity recreationActivity) {
+    void recreation(Animal animal, RecreationActivity recreationActivity) {
         System.out.println(name + " is " + recreationActivity.getName() + " with " + animal.getName() + "! <3 <3");
         if (recreationActivity.getName().equals(animal.getFavoriteRecreation())) {
             animal.setSpiritLevel(animal.getSpiritLevel() + 2);
             System.out.println(animal.getName() + "'s favourite activity is " + animal.getFavoriteRecreation() +
                     " and because you chose favourite activity, the new spirit level is increasing by 2.");
+            animal.happy();
         } else
             animal.setSpiritLevel(animal.getSpiritLevel() + 1);
 
